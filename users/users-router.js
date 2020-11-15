@@ -11,6 +11,7 @@ router.get("/", (req, res) => {
       res.status(500).json({ message: "Failed to get users" });
     });
 });
+
 router.get("/:id", (req, res) => {
   const { id } = req.params;
 
@@ -37,6 +38,7 @@ router.post("/register", (req, res) => {
       res.status(500).json({ message: "error" });
     });
 });
+
 router.put("/:id", (req, res) => {
   const { id } = req.params;
   const changes = req.body;
