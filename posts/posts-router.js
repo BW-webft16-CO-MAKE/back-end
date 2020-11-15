@@ -1,61 +1,79 @@
-const express = require("express");
-const Posts = require("./posts-model.js");
-const router = express.Router();
 
-router.get("/posts", (req, res) => {
-  Posts.find()
-    .then((posts) => {
-      res.json(posts);
+const express = require('express')
+const Posts = require('./posts-model.js')
+const router = express.Router()
+
+router.get('/', (req, res) => {
+    Posts.getAllPosts()
+    .then(post => {
+        res.status(200).json(post)
     })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to get posts" });
-    });
-});
-
-router.post(":id/posts/", (req, res) => {
-  const postData = req.body;
-
-  Posts.create(postData)
-    .then((post) => {
-      res.status(201).json(post);
+    .catch(err => {
+        res.status(500).json({
+            message: err.message
+        })
     })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to create new post" });
-    });
-});
+})
+
+router.post('/newpost', (req, res) => {
+    Posts.addPost(req.body)
+    .then(newPost => {
+        res.status(200).json(newPost)
+    })
+    .catch(err => {
+        res.status(500).json({
+            message: err.message
+        })
+    })
+})
+
+
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+    Posts.findById(id)
+    .then(post => {
+        res.status(200).json(post)
+    })
+    .catch(err => {
+        res.status(500).json({
+            message: err.message
+        })
+    })
+})
+
 router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
+    const { id } = req.params;
+    const updated = req.body;
+  
+    Posts.findById(id)
+      .then((user) => {
+        if (user) {
+          Posts.update(id, updated).then((updatedPost) => {
+            res.json(updatedPost);
+          });
+        } else {
+          res.status(404).json({ message: "Error - Could not update the post, Please try again." });
+        }
+      })
+      .catch((err) => {
+        res.status(500).json({ message: "Error - Could not update the post. Please try again." });
+        console.log(err)
+      });
+  });
 
-  Posts.findById(id)
-    .then((post) => {
-      if (post) {
-        posts.update(changes, id).then((updatedpost) => {
-          res.json(updatedpost);
-        });
-      } else {
-        res.status(404).json({ message: "Could not find post with given id" });
-      }
+router.delete('/:id', (req, res) => {
+    const { id } = req.params
+    Posts.removePost(id)
+    .then(removedPost => {
+        console.log(removedPost)
+        res.status(200).json("Deleted Post")
     })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to update post" });
-    });
-});
-
-router.delete("/:id", (req, res) => {
-  const { id } = req.params;
-
-  posts
-    .remove(id)
-    .then((deleted) => {
-      if (deleted) {
-        res.json({ removed: deleted });
-      } else {
-        res.status(404).json({ message: "Could not find post with given id" });
-      }
+    .catch(err => {
+        res.status(500).json({
+            message: err.message
+        })
     })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to delete post" });
-    });
-});
+})
+
+
 module.exports = router;

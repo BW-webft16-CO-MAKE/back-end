@@ -1,20 +1,40 @@
-// user-model
-const db = require("../data/db-config.js");
+
+const db = require('../data/db-config.js')
 
 module.exports = {
-  find() {
-    return db("posts");
-  },
-  findById(id) {
-    return db("posts").where({ id }).first();
-  },
-  add(user) {
-    return db("posts").insert(user, "id");
-  },
-  update(id, changes) {
-    return db("posts").where({ id }).update(changes);
-  },
-  remove(id) {
-    return db("posts").where({ id }).del();
-  },
-};
+    getAllPosts() {
+        return db('posts')
+    },
+
+    findById(id) {
+        return db('posts')
+        .where({ id : id }).first();
+    },
+
+    getPostsByUser(){
+        return db('users')
+        .join('posts', 'posts.user_id', 'users.id')
+        .select('users.username', 'posts.post_name', 'posts.post_location', 'posts.post_description')
+    },
+
+    addPost(post){
+        return db('posts')
+        .insert(post)
+        .then((id) => {
+            return db('posts')
+            .where({ id : id }).first();
+        })
+    },
+
+    update(id, updates) {
+        return db('posts')
+          .where({ id })
+          .update(updates)
+      },
+
+    removePost(id) {
+        return db('posts')
+        .where({ id : id })
+        .del()
+    },
+}
