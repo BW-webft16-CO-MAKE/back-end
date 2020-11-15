@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
     })
 })
 
-router.post('/', (req, res) => {
+router.post('/newpost', (req, res) => {
     Posts.addPost(req.body)
     .then(newPost => {
         res.status(200).json(newPost)
