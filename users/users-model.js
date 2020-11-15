@@ -6,17 +6,23 @@ module.exports = {
     return db("users");
   },
   findById(id) {
-    return db("users").where({ id }).first();
+    return db("users")
+      .where({ id }).first();
   },
   add(user) {
-    return db("users").insert(user, "id");
+    return db("users")
+      .insert(user);
   },
   update(id, changes) {
-    return db("users").where({ id }).update(changes);
+    return db("users")
+      .where({ id })
+      .update(changes);
   },
   remove(id) {
-    return db("users").where({ id }).del();
+    return db("users")
+      .where({ id }).del();
   },
+
   addPost(postData) {
     return db("posts")
       .insert(postData, "id")
@@ -24,7 +30,11 @@ module.exports = {
         return ids;
       });
   },
-  findPost(id) {
-    return db("posts").join("users", "users_id", "=", "posts.id");
+
+  getPost(id) {
+    return db("posts")
+      .join("users", "user_id", "=", "posts.id")
+      .select('username', 'post_name', 'post_description', 'post_location', )
+      .where({ id })
   },
 };
