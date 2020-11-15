@@ -5,22 +5,23 @@ module.exports = {
   find() {
     return db("users");
   },
-  findById(id) {
+  findBy(filter) {
     return db("users")
-      .where({ id }).first();
+      .where(filter)
+      .orderBy("users.id")
+      .select("users.id", "users.username", "users.password");
+  },
+  findById(id) {
+    return db("users").where({ id }).first();
   },
   add(user) {
-    return db("users")
-      .insert(user);
+    return db("users").insert(user);
   },
   update(id, changes) {
-    return db("users")
-      .where({ id })
-      .update(changes);
+    return db("users").where({ id }).update(changes);
   },
   remove(id) {
-    return db("users")
-      .where({ id }).del();
+    return db("users").where({ id }).del();
   },
 
   addPost(postData) {
@@ -34,7 +35,7 @@ module.exports = {
   getPost(id) {
     return db("posts")
       .join("users", "user_id", "=", "posts.id")
-      .select('username', 'post_name', 'post_description', 'post_location', )
-      .where({ id })
+      .select("username", "post_name", "post_description", "post_location")
+      .where({ id });
   },
 };
