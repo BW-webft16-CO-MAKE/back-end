@@ -29,12 +29,12 @@ router.get("/:id", (req, res) => {
 router.post("/register", (req, res) => {
   const userData = req.body;
 
-  Users.create(userData)
+  Users.add(userData)
     .then((user) => {
       res.status(201).json(user);
     })
     .catch((err) => {
-      res.status(500).json({ message: "Failed to create new user" });
+      res.status(500).json({ message: "error" });
     });
 });
 router.put("/:id", (req, res) => {
@@ -44,7 +44,7 @@ router.put("/:id", (req, res) => {
   Users.findById(id)
     .then((user) => {
       if (user) {
-        users.update(changes, id).then((updateduser) => {
+        Users.update(id, changes).then((updateduser) => {
           res.json(updateduser);
         });
       } else {
@@ -69,6 +69,28 @@ router.delete("/:id", (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({ message: "Failed to delete user" });
+    });
+});
+router.get("/:id/posts", (req, res) => {
+  const id = req.params.id;
+  Users.findPost(id)
+    .then((posts) => {
+      res.status(200).json(posts);
+    })
+    .catch((err) => {
+      res.status(500).json({ message: "Failed to get posts" });
+    });
+});
+
+router.post("/:id/posts", (req, res) => {
+  const id = req.params.id;
+  const newPost = req.body;
+  Users.addPost(newPost)
+    .then((resource) => {
+      res.status(201).json(resource);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
     });
 });
 module.exports = router;
