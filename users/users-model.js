@@ -5,6 +5,13 @@ module.exports = {
   find() {
     return db("users");
   },
+  findBy(filter) {
+    // return db("users").where(filter).orderBy("id");
+    return db("users")
+      .where(filter)
+      .orderBy("users.id")
+      .select("users.id", "users.username", "users.password");
+  },
   findById(id) {
     return db("users").where({ id }).first();
   },
