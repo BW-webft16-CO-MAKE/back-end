@@ -27,36 +27,25 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ message: "Failed to get user" });
     });
 });
-router.post("/register", (req, res) => {
-  const userData = req.body;
+// update user profile for stretch
+// router.put("/:id", (req, res) => {
+//   const { id } = req.params;
+//   const changes = req.body;
 
-  Users.add(userData)
-    .then((user) => {
-      res.status(201).json(user);
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "error" });
-    });
-});
-
-router.put("/:id", (req, res) => {
-  const { id } = req.params;
-  const changes = req.body;
-
-  Users.findById(id)
-    .then((user) => {
-      if (user) {
-        Users.update(id, changes).then((updateduser) => {
-          res.json(updateduser);
-        });
-      } else {
-        res.status(404).json({ message: "Could not find user with given id" });
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ message: "Failed to update user" });
-    });
-});
+//   Users.findById(id)
+//     .then((user) => {
+//       if (user) {
+//         Users.update(id, changes).then((updateduser) => {
+//           res.json(updateduser);
+//         });
+//       } else {
+//         res.status(404).json({ message: "Could not find user with given id" });
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(500).json({ message: "Failed to update user" });
+//     });
+// });
 
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
@@ -84,15 +73,4 @@ router.get("/:id/posts", (req, res) => {
     });
 });
 
-router.post("/:id/posts", (req, res) => {
-  const id = req.params.id;
-  const newPost = req.body;
-  Users.addPost(newPost)
-    .then((resource) => {
-      res.status(201).json(resource);
-    })
-    .catch((err) => {
-      res.status(500).json(err);
-    });
-});
 module.exports = router;
