@@ -32,7 +32,7 @@ router.post("/register", (req, res) => {
 
   Users.add(userData)
     .then((user) => {
-      res.status(201).json(user);
+      res.status(201).json(user.id);
     })
     .catch((err) => {
       res.status(500).json({ message: "error" });
