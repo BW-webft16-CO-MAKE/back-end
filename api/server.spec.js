@@ -25,6 +25,15 @@ describe("router", () => {
     });
   });
   describe("server", () => {
+    it("it should return status code 200", () => {
+      return supertest(server)
+        .get("/api/users/1")
+        .then((res) => {
+          expect(res.status).toBe(200);
+        });
+    });
+  });
+  describe("server", () => {
     it("it should return status code 201", () => {
       return supertest(server)
         .post("/api/auth/register")
@@ -56,16 +65,6 @@ describe("router", () => {
         })
         .then((res) => {
           expect(res.status).toBe(400);
-        });
-    });
-  });
-
-  describe("server", () => {
-    it("it should return status code 200", () => {
-      return supertest(server)
-        .get("/api/users")
-        .then((res) => {
-          expect(res.status).toBe(200);
         });
     });
   });
