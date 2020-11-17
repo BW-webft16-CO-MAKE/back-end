@@ -13,7 +13,7 @@ beforeEach(async () => {
 });
 
 describe("users model", () => {
-  describe("getAll()", () => {
+  describe("find()", () => {
     it("gets an empty array", async () => {
       const users = await User.find();
       expect(users).toHaveLength(0);
