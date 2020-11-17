@@ -1,37 +1,33 @@
 const bcryptjs = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-
 const router = require("express").Router();
-
 const Users = require("../users/users-model.js");
 const { isValid } = require("../users/users-service.js");
+const { jwtSecret } = require('../env/secrets')
 
-router.post("/register", (req, res) => {
-  const credentials = req.body;
-
-  if (isValid(credentials)) {
-    const rounds = process.env.BCRYPT_ROUNDS || 8;
-
-    // hash the password
-    const hash = bcryptjs.hashSync(credentials.password, rounds);
-
+router.post('/register', (req, res) => {
+  // implement registration
+  const credentials = req.body
+  if(credentials) {
+    const rounds = process.env.ROUNDS || 12;
+    const hash = bcryptjs.hashSync(credentials.password, rounds)
     credentials.password = hash;
-
-    // save the user to the database
     Users.add(credentials)
-      .then((user) => {
-        const token = makeJwt(user);
-
-        res.status(201).json({ data: user, token });
+      .then(user => {
+        res.status(201).json({
+          data: user
+        })
       })
-      .catch((error) => {
-        res.status(500).json({ message: error.message });
-      });
+      .catch(error => {
+        res.json(500).json({
+          message: error.message
+        })
+      })
+
   } else {
     res.status(400).json({
-      message:
-        "please provide username and password and the password shoud be alphanumeric",
-    });
+      message: "please provide a username and password that meets our guidelines"
+    })
   }
 });
 
@@ -64,14 +60,11 @@ function makeJwt({ id, username }) {
     username,
     subject: id,
   };
-  const config = {
-    jwtSecret: process.env.JWT_SECRET || "is it secret, is it safe?",
-  };
   const options = {
     expiresIn: "8 hours",
   };
 
-  return jwt.sign(payload, config.jwtSecret, options);
+  return jwt.sign(payload, jwtSecret, options);
 }
 
 module.exports = router;
