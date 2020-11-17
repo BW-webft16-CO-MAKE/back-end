@@ -63,16 +63,29 @@ router.put("/:id", (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params
+    if(req.body === {}) {
+        res.status(500).json({
+            message: "No post with that ID"
+        })
+    } else {
     Posts.removePost(id)
     .then(removedPost => {
-        console.log(removedPost)
-        res.status(200).json("Deleted Post")
+        if(removedPost) {
+            res.json({
+                removed: removedPost
+            })
+        } else {
+            res.status(404).json({
+                message: `Post with id ${id} not found`
+            })
+        }
     })
     .catch(err => {
         res.status(500).json({
             message: err.message
         })
     })
+}
 })
 
 
