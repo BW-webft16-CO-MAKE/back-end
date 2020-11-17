@@ -15,6 +15,13 @@ describe("router", () => {
   beforeEach(async () => {
     await db("users").truncate();
   });
+  it("is able to run tests", () => {
+    expect(true).toBeTruthy();
+  });
+  it("is process.env connected", () => {
+    expect(process.env.DB_ENV).toBe("testing");
+  });
+
   describe("server", () => {
     it("it should return status code 200", () => {
       return supertest(server)
@@ -27,7 +34,7 @@ describe("router", () => {
   describe("server", () => {
     it("it should return status code 200", () => {
       return supertest(server)
-        .get("/api/users/1")
+        .get("/api/users/")
         .then((res) => {
           expect(res.status).toBe(200);
         });
@@ -47,7 +54,12 @@ describe("router", () => {
     it("fail no password 400", () => {
       return supertest(server)
         .post("/api/auth/register")
-        .send()
+        .send({
+          username: "user",
+          email: "john@gmail.com",
+          first_name: "johnn",
+          last_name: "schulerr",
+        })
         .then((res) => {
           expect(res.status).toBe(400);
         });
@@ -68,4 +80,17 @@ describe("router", () => {
         });
     });
   });
+  // describe("server", () => {
+  //   it("login 200", () => {
+  //     return supertest(server)
+  //       .post("/api/auth/login")
+  //       .send({
+  //         username: "user",
+  //         password: "testpass",
+  //       })
+  //       .then((res) => {
+  //         expect(res.status).toBe(200);
+  //       });
+  //   });
+  // });
 });
