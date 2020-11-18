@@ -35,6 +35,6 @@ module.exports = {
     removePost(id) {
         return db('posts')
         .where({ id : id })
-        .del()
+        .delete()
     },
 }
