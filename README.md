@@ -40,24 +40,24 @@ PostMan Directions https://docs.google.com/presentation/d/1e_siqSAX_sv0GEBFo1dRf
 
 | Method | Endpoint         | Token Required | Description                                                                                                       |     |
 | ------ | ---------------- | -------------- | ----------------------------------------------------------------------------------------------------------------- | --- |
-| POST   | `/auth/register` | no             | Registers a new user <br> Required: first name, last name, email, username, and password. <br>Returns .... |
-| POST   | `/auth/login`    | no             | Signs in user and returns a token.<br> Required: username and password.              |
+| POST   | `api/auth/register` | no             | Registers a new user <br> Required: first name, last name, email, username, and password. <br>Returns .... |
+| POST   | `api/auth/login`    | no             | Signs in user and returns a token.<br> Required: username and password.              |
 
 ### User Routes
 
 | Method | Endpoint           | Token Required | Description                   |
 | ------ | ------------------ | -------------- | ----------------------------- |
-| GET    | `/users`           | yes            | Returns all users             |
-| GET    | `/users/:id`       | yes            | Returns a single user by id   |
-| GET    | `/users/:id/posts` | yes            | Returns a single user's items |
-| DELETE | `/users/:id/`      | yes            | Deletes a single user         |
+| GET    | `api/users`           | yes            | Returns all users             |
+| GET    | `api/users/:id`       | yes            | Returns a single user by id   |
+| GET    | `api/users/:id/posts` | yes            | Returns a single user's items |
+| DELETE | `api/users/:id/`      | yes            | Deletes a single user         |
 
 ### Post Routes
 
 | Method | Endpoint           | Token Required | Description                                                                                        |
 | ------ | ------------------ | -------------- | -------------------------------------------------------------------------------------------------- |
-| GET    | `/posts`           | yes            | Returns all posts                                                                                  |
-| GET    | `/posts/:id`       | yes            | Returns a single post                                                                              |
-| POST   | `/posts/newpost`   | yes            | Adds a post to the database <br> <br> All other values in the model are optional, but encouraged. |
-| PUT    | `/posts/:id`       | yes            | Edits a single item                                                                                |
-| DELETE | `/posts/:id`       | yes            | Deletes a single item                                                                             |
+| GET    | `api/posts`           | yes            | Returns all posts                                                                                  |
+| GET    | `api/posts/:id`       | yes            | Returns a single post                                                                              |
+| POST   | `api/posts/newpost`   | yes            | Adds a post to the database <br> <br> All other values in the model are optional, but encouraged. |
+| PUT    | `api/posts/:id`       | yes            | Edits a single item                                                                                |
+| DELETE | `api/posts/:id`       | yes            | Deletes a single item                                                                             |
