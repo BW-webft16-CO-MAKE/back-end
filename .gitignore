@@ -115,5 +115,3 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-.test.db3
-.comake.db3
