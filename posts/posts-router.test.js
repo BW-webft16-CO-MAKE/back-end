@@ -38,6 +38,10 @@ beforeAll((done) => {
         done();
       });
   });
+
+  afterAll(async () => {
+      await db('users').truncate()
+  })
   
   beforeAll(async ()=> {
     await db('posts').truncate()
