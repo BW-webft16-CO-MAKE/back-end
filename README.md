@@ -47,17 +47,18 @@ PostMan Directions https://docs.google.com/presentation/d/1e_siqSAX_sv0GEBFo1dRf
 
 | Method | Endpoint           | Token Required | Description                   |
 | ------ | ------------------ | -------------- | ----------------------------- |
-| GET    | `api/users`           | yes            | Returns all users             |
-| GET    | `api/users/:id`       | yes            | Returns a single user by id   |
-| GET    | `api/users/:id/posts` | yes            | Returns a single user's items |
-| DELETE | `api/users/:id/`      | yes            | Deletes a single user         |
+| GET    | `api/users`              | yes            | Returns all users             |
+| GET    | `api/users/:id`          | yes            | Returns a single user by id   |
+| GET    | `api/users/:id/posts`    | yes            | Returns a single users post history |
+| POST   | `api/users/:id/newpost`  | yes            | Returns the newly added post |
+| DELETE | `api/users/:id/`         | yes            | Deletes a single user         |
 
 ### Post Routes
 
 | Method | Endpoint           | Token Required | Description                                                                                        |
 | ------ | ------------------ | -------------- | -------------------------------------------------------------------------------------------------- |
-| GET    | `api/posts`           | yes            | Returns all posts                                                                                  |
+| GET    | `api/posts`           | yes            | Returns all posts with username, post name, post location, and post description                                                                                  |
 | GET    | `api/posts/:id`       | yes            | Returns a single post                                                                              |
-| POST   | `api/posts/newpost`   | yes            | Adds a post to the database <br> <br> All other values in the model are optional, but encouraged. |
+
 | PUT    | `api/posts/:id`       | yes            | Edits a single item                                                                                |
 | DELETE | `api/posts/:id`       | yes            | Deletes a single item                                                                             |

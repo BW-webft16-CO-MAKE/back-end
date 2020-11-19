@@ -59,7 +59,7 @@ router.post("/login", (req, res) => {
 function makeJwt({ id, username }) {
   const payload = {
     username,
-    subject: id,
+    id,
   };
   const options = {
     expiresIn: "8 hours",

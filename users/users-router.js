@@ -1,6 +1,8 @@
 const express = require("express");
 const Users = require("./users-model.js");
+const Posts = require('../posts/posts-model.js')
 const router = express.Router();
+const authenticate = require("../auth/auth-middleware.js");
 
 router.get("/", (req, res) => {
   Users.find()
@@ -95,4 +97,19 @@ router.post("/:id/posts", (req, res) => {
       res.status(500).json(err);
     });
 });
+
+router.post('/:id/newpost', authenticate, (req, res) => {
+  console.log("id here ->", req.params.id)
+  const newPost = {user_id: req.params.id, post_name:req.body.post_name, post_location:req.body.post_location, post_description:req.body.post_description}
+  Posts.addPost(newPost)
+  .then(newPost => {
+      res.status(200).json(newPost)
+  })
+  .catch(err => {
+      res.status(500).json({
+          message: err.message
+      })
+  })
+})
+
 module.exports = router;
