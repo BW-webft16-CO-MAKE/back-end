@@ -16,7 +16,7 @@ PostMan Directions https://docs.google.com/presentation/d/1e_siqSAX_sv0GEBFo1dRf
 
 | data       | type                  | required |
 | ---------- | --------------------- | -------- |
-| id         | integer               | yes      |
+| id         | integer               | no      |
 | first_name | string                | yes      |
 | last_name  | string                | yes      |
 | email      | string                | yes      |
@@ -27,7 +27,7 @@ PostMan Directions https://docs.google.com/presentation/d/1e_siqSAX_sv0GEBFo1dRf
 
 | data             | type    | required |
 | -----------      | ------- | -------- |
-| id               | integer | yes      |
+| id               | integer | no      |
 | post_name        | string  | yes      |
 | post_description | string  | yes      |
 | post_location    | string  | yes      |
