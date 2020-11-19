@@ -14,7 +14,7 @@ module.exports = {
     getAllPostsByUser(){
         return db('users')
         .join('posts', 'posts.user_id', 'users.id')
-        .select('users.username', 'posts.post_name', 'posts.post_location', 'posts.post_description')
+        .select('users.username', 'posts.post_name', 'posts.post_location', 'posts.post_description', 'posts.upvotes')
     },
 
     addPost(post){
