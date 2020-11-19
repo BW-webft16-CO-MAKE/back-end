@@ -7,11 +7,13 @@ exports.up = function(knex) {
         tbl.string('last_name')
             .notNullable()
         tbl.string('email')
-            .notNullable();
+            .notNullable()
+            .unique()
         tbl.string('username')
             .notNullable()
+            .unique()
         tbl.string('password')
-            .notNullable();
+            .notNullable()
     })
     .createTable('posts', tbl => {
         tbl.increments();
@@ -22,7 +24,7 @@ exports.up = function(knex) {
         tbl.string('post_location')
             .notNullable();
         tbl.integer('upvotes')
-        tbl.string('user_id')
+        tbl.integer('user_id')
             .unsigned()
             .references('id')
             .inTable('users')

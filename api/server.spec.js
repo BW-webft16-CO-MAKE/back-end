@@ -61,7 +61,7 @@ describe("router", () => {
           last_name: "schulerr",
         })
         .then((res) => {
-          expect(res.status).toBe(400);
+          expect(res.status).toBe(500);
         });
     });
   });
@@ -76,7 +76,7 @@ describe("router", () => {
           last_name: "schulerr",
         })
         .then((res) => {
-          expect(res.status).toBe(400);
+          expect(res.status).toBe(500);
         });
     });
   });

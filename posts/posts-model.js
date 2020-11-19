@@ -11,7 +11,7 @@ module.exports = {
         .where({ id : id }).first();
     },
 
-    getPostsByUser(){
+    getAllPostsByUser(){
         return db('users')
         .join('posts', 'posts.user_id', 'users.id')
         .select('users.username', 'posts.post_name', 'posts.post_location', 'posts.post_description')

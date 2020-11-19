@@ -38,6 +38,10 @@ beforeAll((done) => {
         done();
       });
   });
+
+  afterAll(async () => {
+      await db('users').truncate()
+  })
   
   beforeAll(async ()=> {
     await db('posts').truncate()
@@ -74,20 +78,22 @@ describe('post-router.js module', () => {
     describe('[POST] /newPost', () => {
 
         it('should give a 401 error without a token', async () => {
-            const res = await request(server).post('/api/posts/newpost')
+            const res = await request(server).post('/api/users/1/newpost')
             .send({
                 post_name: 'test post',
                 post_location: 'test location',
-                post_description: 'test description'
+                post_description: 'test description',
+                user_id: 1
             })
             expect(res.status).toBe(401)
         })
 
         it('responds with a 200 status and the new item', async () => {
             await request(server)
-              .post('/api/posts/newpost')
+              .post('/api/users/1/newpost')
               .set('Authorization', token)
               .send({
+                  user_id: '1',
                   post_name: 'test post',
                   post_location: 'test location',
                   post_description: 'test description'

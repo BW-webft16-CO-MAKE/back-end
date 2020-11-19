@@ -19,8 +19,9 @@ router.post('/register', (req, res) => {
         })
       })
       .catch(error => {
-        res.json(500).json({
-          message: error.message
+        console.log(error)
+        res.status(500).json({
+          message: "Sorry we could not log you in please check your credentials and try again"
         })
       })
 
@@ -58,7 +59,7 @@ router.post("/login", (req, res) => {
 function makeJwt({ id, username }) {
   const payload = {
     username,
-    subject: id,
+    id,
   };
   const options = {
     expiresIn: "8 hours",
