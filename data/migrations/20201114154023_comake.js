@@ -24,6 +24,7 @@ exports.up = function(knex) {
         tbl.string('post_location')
             .notNullable();
         tbl.integer('upvotes')
+            .defaultTo('0')
         tbl.integer('user_id')
             .unsigned()
             .references('id')
