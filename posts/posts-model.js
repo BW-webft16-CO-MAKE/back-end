@@ -26,6 +26,11 @@ module.exports = {
         })
     },
 
+    // addItem(post, id) {
+    //     post.user_id = id
+    //     return db("posts").insert(post, "id");
+    // },
+
     update(id, updates) {
         return db('posts')
           .where({ id })
@@ -37,4 +42,15 @@ module.exports = {
         .where({ id : id })
         .delete()
     },
+    add
 }
+
+async function add(post) {
+    try {
+      const [id] = await db("posts").insert(post, "id");
+  
+      return findById(id);
+    } catch (error) {
+      throw error;
+    }
+  }

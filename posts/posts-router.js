@@ -15,6 +15,32 @@ router.get('/', (req, res) => {
     })
 })
 
+// router.post('/newpost', (req, res) => {
+//     console.log("id here ->", req.params.id)
+//     const newPost = {post_name:req.body.post_name, post_location:req.body.post_location, post_description:req.body.post_description}
+//     Posts.add(newPost)
+//     .then(newPost => {
+//         res.status(200).json(newPost)
+//     })
+//     .catch(err => {
+//         res.status(500).json({
+//             message: err.message
+//         })
+//     })
+//   })
+
+  router.post("/newpost", (req, res) => {
+    console.log("HELLO", req.decodedJWT)
+    const newPost = {user_id:req.decodedJWT.id, post_name:req.body.post_name, post_location:req.body.post_location, post_description:req.body.post_description}
+    Posts.addPost(newPost)
+        .then(post => {
+            res.status(201).json(post);
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).json(err);
+        });
+    });
 
 router.get('/:id', (req, res) => {
     const { id } = req.params

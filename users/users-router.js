@@ -37,6 +37,7 @@ router.post("/register", (req, res) => {
       res.status(201).json(user.id);
     })
     .catch((err) => {
+      console.log(err)
       res.status(500).json({ message: "error" });
     });
 });
@@ -97,19 +98,5 @@ router.post("/:id/posts", (req, res) => {
       res.status(500).json(err);
     });
 });
-
-router.post('/:id/newpost', authenticate, (req, res) => {
-  console.log("id here ->", req.params.id)
-  const newPost = {user_id: req.params.id, post_name:req.body.post_name, post_location:req.body.post_location, post_description:req.body.post_description}
-  Posts.addPost(newPost)
-  .then(newPost => {
-      res.status(200).json(newPost)
-  })
-  .catch(err => {
-      res.status(500).json({
-          message: err.message
-      })
-  })
-})
 
 module.exports = router;

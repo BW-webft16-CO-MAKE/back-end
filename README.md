@@ -50,7 +50,7 @@ PostMan Directions https://docs.google.com/presentation/d/1e_siqSAX_sv0GEBFo1dRf
 | GET    | `api/users`              | yes            | Returns all users             |
 | GET    | `api/users/:id`          | yes            | Returns a single user by id   |
 | GET    | `api/users/:id/posts`    | yes            | Returns a single users post history |
-| POST   | `api/users/:id/newpost`  | yes            | Returns the newly added post |
+| POST   | `api/users/newpost`      | yes            | Returns the newly added post |
 | DELETE | `api/users/:id/`         | yes            | Deletes a single user         |
 
 ### Post Routes
