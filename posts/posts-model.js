@@ -20,10 +20,9 @@ module.exports = {
     addPost(post){
         return db('posts')
         .insert(post, "id")
-        .then((id) => {
-            return db('posts')
-            .where({ id : id }).first();
-        })
+        .then(ids => ids[0])
+            // return db('posts')
+            // .where({ id : id }).first();
     },
 
     // addItem(post, id) {
