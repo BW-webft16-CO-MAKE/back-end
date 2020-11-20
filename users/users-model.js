@@ -28,7 +28,7 @@ module.exports = {
     return db("posts")
       .insert(postData, "id")
       .then((ids) => {
-        return ids;
+        return ids[0];
       });
   },
 
