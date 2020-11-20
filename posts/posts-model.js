@@ -19,7 +19,7 @@ module.exports = {
 
     addPost(post){
         return db('posts')
-        .insert(post)
+        .insert(post, "post")
         .then((id) => {
             return db('posts')
             .where({ id : id }).first();
